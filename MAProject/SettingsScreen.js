@@ -19,25 +19,39 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    paddingTop: 70,
+    paddingHorizontal: 24,
   },
+
   title: {
-    fontSize: 32,
-    fontWeight: '700',
-    marginBottom: 30,
+    fontSize: 34,
+    fontWeight: '800',
+    marginBottom: 35,
     textAlign: 'center',
+    letterSpacing: 0.5,
   },
+
   optionRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+
+    paddingVertical: 18,
+    paddingHorizontal: 14,
+
+    backgroundColor: '#fff',
+    borderRadius: 16,
+
+    marginBottom: 18,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
+
   optionLabel: {
     fontSize: 20,
-    fontWeight: '500',
+    fontWeight: '600',
   },
 });
