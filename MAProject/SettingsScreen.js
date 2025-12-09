@@ -91,69 +91,61 @@ export default function SettingsScreen({ navigation }) {
         </Pressable>
       </Animated.View>
 
-{/* Account Section */}
-<Text style={[styles.sectionTitle, { color: colors.subtle }]}>Account</Text>
+      {/* Account Section */}
+      <Text style={[styles.sectionTitle, { color: colors.subtle }]}>Account</Text>
 
-{user ? (
-  // Logged-in view
-  <>
-    <Animated.View entering={FadeInDown.delay(350).springify()}>
-      <View style={[styles.accountInfoRow, { backgroundColor: colors.card }]}>
-        <Text style={[styles.accountText, { color: colors.text }]}>
-          Logged in as: {user.email}
-        </Text>
-      </View>
-    </Animated.View>
-
-    <Animated.View entering={FadeInDown.delay(420).springify()}>
-      <Pressable
-        style={({ pressed }) => [
-          styles.navRow,
-          { backgroundColor: colors.card },
-          pressed && { opacity: 0.9, transform: [{ scale: 0.98 }] }
-        ]}
-        onPress={handleLogout}
-      >
-        <View style={styles.rowLeft}>
-          <View style={[styles.iconContainer, { backgroundColor: colors.iconBg }]}>
-            <Ionicons name="log-out" size={20} color={colors.text} />
-          </View>
-          <Text style={[styles.optionLabel, { color: colors.text }]}>Logout</Text>
-        </View>
-      </Pressable>
-    </Animated.View>
-  </>
-) : (
-  // Logged-out view (Login/Register buttons)
-  <>
-    {[
-      { icon: 'log-in', label: 'Login', screen: 'Login' },
-      { icon: 'person-add', label: 'Register', screen: 'Register' }
-    ].map((item, index) => (
-      <Animated.View
-        key={index}
-        entering={FadeInDown.delay(350 + index * 70).springify()}
-      >
-        <Pressable
-          style={({ pressed }) => [
-            styles.navRow,
-            { backgroundColor: colors.card },
-            pressed && { opacity: 0.9, transform: [{ scale: 0.98 }] }
-          ]}
-          onPress={() => navigation.navigate(item.screen)}
-        >
-          <View style={styles.rowLeft}>
-            <View style={[styles.iconContainer, { backgroundColor: colors.iconBg }]}>
-              <Ionicons name={item.icon} size={20} color={colors.text} />
+      {user ? (
+        // Logged-in view
+        <Animated.View entering={FadeInDown.delay(350).springify()}>
+          <Pressable
+            style={({ pressed }) => [
+              styles.navRow,
+              { backgroundColor: colors.card },
+              pressed && { opacity: 0.9, transform: [{ scale: 0.98 }] }
+            ]}
+            onPress={handleLogout}
+          >
+            <View style={styles.rowLeft}>
+              <View style={[styles.iconContainer, { backgroundColor: colors.iconBg }]}>
+                <Ionicons name="log-out" size={20} color={colors.text} />
+              </View>
+              <Text style={[styles.optionLabel, { color: colors.text }]}>Logout</Text>
             </View>
-            <Text style={[styles.optionLabel, { color: colors.text }]}>{item.label}</Text>
-          </View>
-        </Pressable>
-      </Animated.View>
-    ))}
-  </>
-)}
-
+          </Pressable>
+        </Animated.View>
+      ) : (
+        // Logged-out view
+        <>
+          {[
+            { icon: 'log-in', label: 'Login', screen: 'Login' },
+            { icon: 'person-add', label: 'Register', screen: 'Register' }
+          ].map((item, index) => (
+            <Animated.View
+              key={index}
+              entering={FadeInDown.delay(350 + index * 70).springify()}
+            >
+              <Pressable
+                style={({ pressed }) => [
+                  styles.navRow,
+                  { backgroundColor: colors.card },
+                  pressed && { opacity: 0.9, transform: [{ scale: 0.98 }] }
+                ]}
+                onPress={() => navigation.navigate(item.screen)}
+              >
+                <View style={styles.rowLeft}>
+                  <View style={[styles.iconContainer, { backgroundColor: colors.iconBg }]}>
+                    <Ionicons name={item.icon} size={20} color={colors.text} />
+                  </View>
+                  <Text style={[styles.optionLabel, { color: colors.text }]}>{item.label}</Text>
+                </View>
+              </Pressable>
+            </Animated.View>
+          ))}
+        </>
+      )}
+    </LinearGradient>
+  );
+}
 
 /* ============================= */
 /*           Color Themes        */
@@ -163,7 +155,7 @@ const lightColors = {
   card: 'rgba(255,255,255,0.65)',
   text: '#111',
   subtle: '#555',
-  iconBg: 'rgba(0,0,0,0.06)'
+  iconBg: 'rgba(0,0,0,0.06)',
 };
 
 const darkColors = {
@@ -171,8 +163,9 @@ const darkColors = {
   card: 'rgba(28,28,30,0.55)',
   text: '#f1f1f1',
   subtle: '#999',
-  iconBg: 'rgba(255,255,255,0.08)'
+  iconBg: 'rgba(255,255,255,0.08)',
 };
+
 
 /* ============================= */
 /*            Styles             */

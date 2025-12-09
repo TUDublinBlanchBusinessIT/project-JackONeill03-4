@@ -13,6 +13,7 @@ if (Platform.OS !== 'web') {
 import SettingsScreen from './SettingsScreen'; // make sure this path is correct
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
+import ExerciseScreen from './ExerciseScreen';
 
 function HomeScreen({ navigation }) {
   const systemTheme = useColorScheme();
@@ -61,6 +62,7 @@ export default function App() {
         <Drawer.Screen name="Settings" component={SettingsScreen} />
         <Drawer.Screen name="Login" component={LoginScreen} />
         <Drawer.Screen name="Register" component={RegisterScreen} />
+        <Drawer.Screen name="Exercise" component={ExerciseScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
