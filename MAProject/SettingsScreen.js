@@ -1,251 +1,77 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Animated, { FadeInDown } from 'react-native-reanimated';
-import { LinearGradient } from 'expo-linear-gradient';
 
-export default function SettingsScreen() {
+export default function SettingsScreen({ navigation, user }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [notifications, setNotifications] = useState(true);
   const [haptics, setHaptics] = useState(true);
 
   const colors = isDarkMode ? darkColors : lightColors;
 
-  return (
-    <LinearGradient
-      colors={isDarkMode ? ['#0a0a0a', '#1b1b1e'] : ['#f3f5f8', '#e7eaef']}
-      style={[styles.container]}
-    >
+  const handleProfilePress = () => {
+    if (user) {
+      navigation.navigate('Profile');
+    } else {
+      navigation.navigate('Login');
+    }
+  };
 
-      {/* Title */}
+  return (
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text style={[styles.title, { color: colors.text }]}>Settings</Text>
 
-
-      {/* ======= Appearance Section ======= */}
       <Text style={[styles.sectionTitle, { color: colors.subtle }]}>Appearance</Text>
-
-      <Animated.View entering={FadeInDown.delay(120).springify()}>
-        <Pressable style={[styles.optionRow, { backgroundColor: colors.card }]}>
-          <View style={styles.rowLeft}>
-            <View style={[styles.iconContainer, { backgroundColor: colors.iconBg }]}>
-              <Ionicons name="moon" size={20} color={colors.text} />
-            </View>
-            <Text style={[styles.optionLabel, { color: colors.text }]}>Dark Mode</Text>
-          </View>
-
-          <Switch
-            value={isDarkMode}
-            onValueChange={setIsDarkMode}
-            trackColor={{ false: '#777', true: '#4a90e2' }}
-            thumbColor={isDarkMode ? '#fff' : '#eee'}
-          />
-        </Pressable>
-      </Animated.View>
-
-
-      {/* ======= Preferences Section ======= */}
-      <Text style={[styles.sectionTitle, { color: colors.subtle }]}>Preferences</Text>
-
-      <Animated.View entering={FadeInDown.delay(200).springify()}>
-        <Pressable style={[styles.optionRow, { backgroundColor: colors.card }]}>
-          <View style={styles.rowLeft}>
-            <View style={[styles.iconContainer, { backgroundColor: colors.iconBg }]}>
-              <Ionicons name="notifications" size={20} color={colors.text} />
-            </View>
-            <Text style={[styles.optionLabel, { color: colors.text }]}>Notifications</Text>
-          </View>
-
-          <Switch
-            value={notifications}
-            onValueChange={setNotifications}
-            trackColor={{ false: '#777', true: '#4a90e2' }}
-            thumbColor={notifications ? '#fff' : '#eee'}
-          />
-        </Pressable>
-      </Animated.View>
-
-      <Animated.View entering={FadeInDown.delay(280).springify()}>
-        <Pressable style={[styles.optionRow, { backgroundColor: colors.card }]}>
-          <View style={styles.rowLeft}>
-            <View style={[styles.iconContainer, { backgroundColor: colors.iconBg }]}>
-              <Ionicons name="phone-portrait" size={20} color={colors.text} />
-            </View>
-            <Text style={[styles.optionLabel, { color: colors.text }]}>Haptics</Text>
-          </View>
-
-          <Switch
-            value={haptics}
-            onValueChange={setHaptics}
-            trackColor={{ false: '#777', true: '#4a90e2' }}
-            thumbColor={haptics ? '#fff' : '#eee'}
-          />
-        </Pressable>
-      </Animated.View>
-
-
-      {/* ======= Account Section ======= */}
-      <Text style={[styles.sectionTitle, { color: colors.subtle }]}>Account</Text>
-
-      {[ 
-        { icon: 'person', label: 'Profile' },
-        { icon: 'shield-checkmark', label: 'Privacy' }
-      ].map((item, index) => (
-        <Animated.View
-          key={index}
-          entering={FadeInDown.delay(350 + index * 70).springify()}
-        >
-          <Pressable
-            style={({ pressed }) => [
-              styles.navRow,
-              { backgroundColor: colors.card },
-              pressed && { opacity: 0.9, transform: [{ scale: 0.98 }] }
-            ]}
-          >
-            <View style={styles.rowLeft}>
-              <View style={[styles.iconContainer, { backgroundColor: colors.iconBg }]}>
-                <Ionicons name={item.icon} size={20} color={colors.text} />
-              </View>
-              <Text style={[styles.optionLabel, { color: colors.text }]}>{item.label}</Text>
-            </View>
-
-            <Ionicons name="chevron-forward" size={22} color={colors.subtle} />
-          </Pressable>
-        </Animated.View>
-      ))}
-
-
-      {/* ======= App Section ======= */}
-      <Text style={[styles.sectionTitle, { color: colors.subtle }]}>App</Text>
-
-      <Animated.View entering={FadeInDown.delay(500).springify()}>
-        <View style={[styles.versionRow, { backgroundColor: colors.card }]}>
-          <Text style={[styles.optionLabel, { color: colors.text }]}>App Version</Text>
-          <Text style={[styles.versionText, { color: colors.subtle }]}>1.0.0</Text>
+      <View style={[styles.optionRow, { backgroundColor: colors.card }]}>
+        <View style={styles.rowLeft}>
+          <Ionicons name="moon" size={20} color={colors.text} />
+          <Text style={[styles.optionLabel, { color: colors.text }]}>Dark Mode</Text>
         </View>
-      </Animated.View>
+        <Switch value={isDarkMode} onValueChange={setIsDarkMode} />
+      </View>
 
-    </LinearGradient>
+      <Text style={[styles.sectionTitle, { color: colors.subtle }]}>Preferences</Text>
+      <View style={[styles.optionRow, { backgroundColor: colors.card }]}>
+        <View style={styles.rowLeft}>
+          <Ionicons name="notifications" size={20} color={colors.text} />
+          <Text style={[styles.optionLabel, { color: colors.text }]}>Notifications</Text>
+        </View>
+        <Switch value={notifications} onValueChange={setNotifications} />
+      </View>
+      <View style={[styles.optionRow, { backgroundColor: colors.card }]}>
+        <View style={styles.rowLeft}>
+          <Ionicons name="phone-portrait" size={20} color={colors.text} />
+          <Text style={[styles.optionLabel, { color: colors.text }]}>Haptics</Text>
+        </View>
+        <Switch value={haptics} onValueChange={setHaptics} />
+      </View>
+
+      <Text style={[styles.sectionTitle, { color: colors.subtle }]}>Account</Text>
+      <Pressable style={[styles.navRow, { backgroundColor: colors.card }]} onPress={handleProfilePress}>
+        <View style={styles.rowLeft}>
+          <Ionicons name="person" size={20} color={colors.text} />
+          <Text style={[styles.optionLabel, { color: colors.text }]}>Profile</Text>
+        </View>
+      </Pressable>
+      <Pressable style={[styles.navRow, { backgroundColor: colors.card }]} onPress={() => alert('Privacy clicked')}>
+        <View style={styles.rowLeft}>
+          <Ionicons name="shield-checkmark" size={20} color={colors.text} />
+          <Text style={[styles.optionLabel, { color: colors.text }]}>Privacy</Text>
+        </View>
+      </Pressable>
+    </View>
   );
 }
 
+const lightColors = { background: '#f2f2f7', card: '#fff', text: '#111', subtle: '#555' };
+const darkColors = { background: '#0d0d0d', card: '#1a1a1a', text: '#f1f1f1', subtle: '#999' };
 
-/* ============================= */
-/*           Color Themes        */
-/* ============================= */
-const lightColors = {
-  background: '#f2f2f7',
-  card: 'rgba(255,255,255,0.65)',
-  text: '#111',
-  subtle: '#555',
-  iconBg: 'rgba(0,0,0,0.06)'
-};
-
-const darkColors = {
-  background: '#0d0d0d',
-  card: 'rgba(28,28,30,0.55)',
-  text: '#f1f1f1',
-  subtle: '#999',
-  iconBg: 'rgba(255,255,255,0.08)'
-};
-
-
-/* ============================= */
-/*            Styles             */
-/* ============================= */
 const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    paddingTop: 80,
-    paddingHorizontal: 20,
-  },
-
-  title: {
-    fontSize: 34,
-    fontWeight: '800',
-    marginBottom: 15,
-    textAlign: 'center',
-    letterSpacing: 0.5,
-  },
-
-  sectionTitle: {
-    fontSize: 13,
-    fontWeight: '700',
-    letterSpacing: 1.2,
-    marginTop: 35,
-    marginBottom: 14,
-    opacity: 0.6,
-    textTransform: 'uppercase',
-  },
-
-  optionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-    paddingVertical: 20,
-    paddingHorizontal: 16,
-
-    borderRadius: 20,
-    marginBottom: 16,
-
-    backdropFilter: 'blur(14px)', // web-only (harmless on mobile)
-
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowRadius: 18,
-    elevation: 5,
-  },
-
-  navRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-    paddingVertical: 18,
-    paddingHorizontal: 16,
-
-    borderRadius: 20,
-    marginBottom: 16,
-
-    shadowColor: '#000',
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    elevation: 3,
-  },
-
-  versionRow: {
-    paddingVertical: 18,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-
-  rowLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  iconContainer: {
-    width: 38,
-    height: 38,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 14,
-  },
-
-  optionLabel: {
-    fontSize: 18,
-    fontWeight: '600',
-  },
-
-  versionText: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
+  container: { flex: 1, paddingTop: 80, paddingHorizontal: 20 },
+  title: { fontSize: 34, fontWeight: '800', marginBottom: 15, textAlign: 'center' },
+  sectionTitle: { fontSize: 13, fontWeight: '700', marginTop: 35, marginBottom: 14, opacity: 0.6 },
+  optionRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 16, borderRadius: 12, marginBottom: 16 },
+  navRow: { flexDirection: 'row', alignItems: 'center', padding: 16, borderRadius: 12, marginBottom: 16 },
+  rowLeft: { flexDirection: 'row', alignItems: 'center' },
+  optionLabel: { fontSize: 18, fontWeight: '600', marginLeft: 10 },
 });
