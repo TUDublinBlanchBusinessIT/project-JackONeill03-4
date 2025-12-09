@@ -17,6 +17,26 @@ import SettingsScreen from './SettingsScreen';
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
 import ExerciseScreen from './ExerciseScreen';
+import ProfileScreen from './ProfileScreen';
+
+
+// Drawer navigator
+const Drawer = createDrawerNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="Settings" component={SettingsScreen} />
+        <Drawer.Screen name="Login" component={LoginScreen} />
+        <Drawer.Screen name="Register" component={RegisterScreen} />
+        <Drawer.Screen name="Exercises" component={ExerciseScreen} />
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
 
 function HomeScreen({ navigation }) {
   const systemTheme = useColorScheme();
@@ -104,23 +124,6 @@ function HomeScreen({ navigation }) {
     </ScrollView>
   </LinearGradient>
 );
-}
-
-// Drawer navigator
-const Drawer = createDrawerNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Settings" component={SettingsScreen} />
-        <Drawer.Screen name="Login" component={LoginScreen} />
-        <Drawer.Screen name="Register" component={RegisterScreen} />
-        <Drawer.Screen name="Exercises" component={ExerciseScreen} />
-      </Drawer.Navigator>
-    </NavigationContainer>
-  );
 }
 
 // Color themes
